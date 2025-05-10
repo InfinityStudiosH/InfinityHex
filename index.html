@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Infinity Studio - Servicios Minecraft</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Infinity Studio</title>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       font-family: 'Rubik', sans-serif;
-      background-color: #0b0b0b;
+      background: radial-gradient(ellipse at bottom, #0d0d1a 0%, #000000 100%);
       color: #eee;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
 
     header {
       background-color: #111;
       padding: 30px 0;
-      border-bottom: 2px solid #d60000;
       text-align: center;
+      border-bottom: 2px solid #d60000;
     }
 
     header h1 {
-      color: #d60000;
       font-size: 2.8rem;
+      color: #d60000;
       margin: 0;
     }
 
@@ -66,10 +74,9 @@
       border: 1px solid #333;
       border-radius: 10px;
       padding: 20px;
-      transition: 0.3s ease;
+      transition: 0.3s;
       text-align: center;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     }
 
     .card:hover {
@@ -79,25 +86,12 @@
 
     .card h3 {
       color: #ff1a1a;
-      margin: 0 0 10px;
+      margin-bottom: 10px;
     }
 
     .card p {
       color: #aaa;
       font-size: 0.95rem;
-    }
-
-    .testimonial {
-      background-color: #1a1a1a;
-      border-left: 4px solid #d60000;
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    .testimonial h4 {
-      color: #ff1a1a;
-      margin-top: 10px;
-      font-size: 1rem;
     }
 
     footer {
@@ -117,9 +111,39 @@
     section.active {
       display: block;
     }
+
+    .testimonial {
+      background-color: #1a1a1a;
+      border-left: 4px solid #d60000;
+      padding: 20px;
+      border-radius: 10px;
+      color: #ccc;
+    }
+
+    input, textarea {
+      background-color: #1a1a1a;
+      color: #eee;
+      border: 1px solid #333;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #d60000;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff1a1a;
+    }
   </style>
 </head>
 <body>
+  <canvas id="stars"></canvas>
+
   <header>
     <h1>Infinity Studio</h1>
     <nav>
@@ -134,37 +158,37 @@
   <main>
     <section id="inicio" class="active">
       <h2>Bienvenido a Infinity Studio</h2>
-      <p>Un universo de soluciones para servidores Minecraft. Plugins, configuraciones, bots y mucho más.</p>
+      <p>Desarrollamos soluciones personalizadas para servidores Minecraft: plugins, configuraciones, bots y más.</p>
       <div class="grid">
         <div class="card">
-          <h3>¿Quiénes somos?</h3>
-          <p>Somos un estudio enfocado en el desarrollo personalizado y profesional de servidores Minecraft.</p>
+          <h3>Experiencia</h3>
+          <p>Años creando sistemas únicos para servidores premium y comunidades en crecimiento.</p>
         </div>
         <div class="card">
-          <h3>¿Qué ofrecemos?</h3>
-          <p>Desde programación de plugins y sistemas de economía, hasta paneles web y soporte.</p>
+          <h3>Calidad</h3>
+          <p>Solo entregamos resultados optimizados, seguros y listos para producción.</p>
         </div>
         <div class="card">
-          <h3>Únete a nosotros</h3>
-          <p>Explora nuestros servicios y lleva tu servidor al infinito... y más allá.</p>
+          <h3>Soporte</h3>
+          <p>Asistencia rápida y dedicada para asegurar el éxito de tu proyecto.</p>
         </div>
       </div>
     </section>
 
     <section id="servicios">
-      <h2>Nuestros Servicios</h2>
+      <h2>Servicios</h2>
       <div class="grid">
         <div class="card">
-          <h3>Desarrollo de Plugins</h3>
-          <p>Plugins hechos a medida para una experiencia única en tu servidor.</p>
+          <h3>Plugins Personalizados</h3>
+          <p>Creamos sistemas exclusivos para que tu servidor sea único.</p>
         </div>
         <div class="card">
-          <h3>Configuraciones Avanzadas</h3>
-          <p>Configuramos cualquier plugin para que funcione al 100% en tu red.</p>
+          <h3>Configuración Avanzada</h3>
+          <p>Desde permissions hasta menús, todo listo para usar.</p>
         </div>
         <div class="card">
-          <h3>Optimización de Rendimiento</h3>
-          <p>Mejoras de TPS, uso de RAM y red para servidores exigentes.</p>
+          <h3>Optimización</h3>
+          <p>Mejoramos el rendimiento y eliminamos el lag de tu servidor.</p>
         </div>
       </div>
     </section>
@@ -174,67 +198,124 @@
       <div class="grid">
         <div class="card">
           <h3>Servidor HCF</h3>
-          <p>Plugin tipo Lazarus, permisos integrados y sistema de muerte inteligente.</p>
-        </div>
-        <div class="card">
-          <h3>Red SkyPvP</h3>
-          <p>Configuración y estética profesional con panel de control web.</p>
+          <p>Plugin tipo Lazarus, GUI y timers únicos.</p>
         </div>
         <div class="card">
           <h3>Servidor RPG</h3>
-          <p>Misiones, niveles, objetos y habilidades únicas totalmente custom.</p>
+          <p>Misiones, sistemas de progreso y dungeons personalizadas.</p>
+        </div>
+        <div class="card">
+          <h3>Servidor Skyblock</h3>
+          <p>Economía avanzada, misiones y boosts automáticos.</p>
         </div>
       </div>
     </section>
 
     <section id="testimonios">
-      <h2>Lo que dicen nuestros clientes</h2>
+      <h2>Testimonios</h2>
       <div class="grid">
         <div class="testimonial">
-          <p>"Infinity Studio nos ayudó a crear un servidor increíble. ¡Recomendados!"</p>
-          <h4>- Admin de RedPvP</h4>
+          <p>"Infinity Studio elevó nuestro servidor a otro nivel."</p>
+          <h4>— Admin de LunarMC</h4>
         </div>
         <div class="testimonial">
-          <p>"Gran calidad, soporte rápido y un trabajo muy profesional."</p>
-          <h4>- Owner de NexusRPG</h4>
+          <p>"Gracias al equipo, lanzamos a tiempo y sin bugs."</p>
+          <h4>— Fundador de Mythica</h4>
         </div>
         <div class="testimonial">
-          <p>"Todo funcionó perfecto desde el primer día, superó mis expectativas."</p>
-          <h4>- SkyBlock Universe</h4>
+          <p>"Rápidos, eficientes y con resultados impresionantes."</p>
+          <h4>— Owner de NexusBlock</h4>
         </div>
       </div>
     </section>
 
     <section id="contacto">
-      <h2>Contáctanos</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Email</h3>
-          <p>contacto@infinitystudio.dev</p>
-        </div>
-        <div class="card">
-          <h3>Redes Sociales</h3>
-          <p>Twitter, Instagram, TikTok - Síguenos como @InfinityStudioMC</p>
-        </div>
-        <div class="card">
-          <h3>Discord</h3>
-          <p>Únete a nuestro Discord para soporte directo y novedades.</p>
-          <a href="https://discord.gg/7AxSr4M3AX" target="_blank" style="color: #d60000; font-weight: 600; text-decoration: none;">Entrar al Discord</a>
-        </div>
-      </div>
+      <h2>Contacto</h2>
+      <form action="https://formspree.io/f/mwkgydbz" method="POST" id="contact-form" style="max-width: 600px; margin: 0 auto;">
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" name="nombre" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+
+        <label for="email">Correo Electrónico:</label><br>
+        <input type="email" name="email" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+
+        <label for="mensaje">Mensaje:</label><br>
+        <textarea name="mensaje" rows="5" required style="width: 100%; padding: 10px; margin-bottom: 20px;"></textarea><br>
+
+        <button type="submit">Enviar Mensaje</button>
+        <p id="form-status" style="margin-top: 20px; display: none; color: #0f0;"></p>
+      </form>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Infinity Studio - Todos los derechos reservados.</p>
+    <p>&copy; 2025 Infinity Studio - Todos los derechos reservados</p>
   </footer>
 
   <script>
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('section');
-      sections.forEach(section => section.classList.remove('active'));
-      document.getElementById(sectionId).classList.add('active');
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
+
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        status.style.display = "block";
+        status.textContent = "¡Mensaje enviado con éxito! Te responderemos pronto.";
+        form.reset();
+      } else {
+        status.style.display = "block";
+        status.style.color = "#f00";
+        status.textContent = "Error al enviar el mensaje.";
+      }
+    });
+
+    // Fondo de estrellas animadas
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    let w, h, stars = [];
+
+    function initStars() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      stars = Array.from({ length: 100 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.2,
+        dx: (Math.random() - 0.5) * 0.2,
+        dy: (Math.random() - 0.5) * 0.2
+      }));
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "#fff";
+      stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+        s.x += s.dx;
+        s.y += s.dy;
+
+        if (s.x < 0 || s.x > w) s.dx *= -1;
+        if (s.y < 0 || s.y > h) s.dy *= -1;
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    window.addEventListener('resize', initStars);
+    initStars();
+    drawStars();
   </script>
 </body>
 </html>
