@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Portafolio</title>
+    <title>Mi Portafolio Galáctico</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #2c3e50, #8e44ad); /* Galaxia de colores */
+            color: white;
+            overflow-x: hidden;
         }
 
         header {
-            background-color: #333;
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 20px;
+            padding: 60px 20px;
             text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
         nav ul {
             list-style-type: none;
             padding: 0;
+            margin-top: 20px;
         }
 
         nav ul li {
@@ -30,24 +36,49 @@
         }
 
         nav ul li a {
-            color: white;
+            color: #ecf0f1;
             text-decoration: none;
             font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #f39c12; /* Color dorado */
         }
 
         .hero {
             margin-top: 30px;
+            font-size: 24px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
         }
 
+        /* Section Styles */
         section {
-            padding: 40px 20px;
+            padding: 60px 20px;
             margin: 20px 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        section:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.7); /* Diferente color para secciones pares */
         }
 
         h2 {
             text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
         }
 
+        h3 {
+            color: #f39c12;
+        }
+
+        /* Form Styles */
         form {
             display: flex;
             flex-direction: column;
@@ -58,29 +89,67 @@
             width: 80%;
             padding: 10px;
             margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
         }
 
         form button {
             padding: 10px 20px;
-            background-color: #333;
+            background-color: #8e44ad;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         form button:hover {
-            background-color: #555;
+            background-color: #f39c12;
         }
 
+        /* Footer */
         footer {
             text-align: center;
-            padding: 10px;
-            background-color: #333;
+            padding: 20px;
+            background-color: #2c3e50;
             color: white;
         }
+
+        /* Animaciones para secciones */
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Background Stars */
+        .background-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            background-size: cover;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
     </style>
 </head>
 <body>
+    <!-- Background Stars -->
+    <div class="background-stars"></div>
+
     <!-- Sección de Inicio -->
     <header id="inicio">
         <nav>
@@ -93,49 +162,54 @@
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
-        <div class="hero">
-            <h1>Bienvenido a mi Portafolio</h1>
-            <p>Un vistazo a mis proyectos y habilidades.</p>
+        <div class="hero fade-in">
+            <h1>Bienvenido a mi Portafolio Galáctico</h1>
+            <p>Explora mi universo de proyectos y habilidades.</p>
         </div>
     </header>
 
     <!-- Sección Sobre mí -->
-    <section id="sobre-mi">
+    <section id="sobre-mi" class="fade-in">
         <h2>Sobre mí</h2>
-        <p>Aquí va una breve descripción de tu experiencia, educación, etc.</p>
+        <p>Aquí va una breve descripción de tu experiencia, educación, habilidades y metas. ¡Hazlo único y atractivo!</p>
     </section>
 
     <!-- Sección Proyectos -->
-    <section id="proyectos">
+    <section id="proyectos" class="fade-in">
         <h2>Proyectos</h2>
         <div class="proyecto">
-            <h3>Proyecto 1</h3>
-            <p>Descripción del proyecto.</p>
+            <h3>Proyecto 1: Galaxia Web</h3>
+            <p>Este proyecto es una página interactiva con temas galácticos que muestra el potencial de mi trabajo.</p>
         </div>
-        <!-- Puedes añadir más proyectos -->
+        <div class="proyecto">
+            <h3>Proyecto 2: CosmoApp</h3>
+            <p>Una aplicación móvil que conecta usuarios con conocimientos sobre astronomía y viajes espaciales.</p>
+        </div>
+        <!-- Más proyectos -->
     </section>
 
     <!-- Sección Habilidades -->
-    <section id="habilidades">
+    <section id="habilidades" class="fade-in">
         <h2>Habilidades</h2>
         <ul>
             <li>HTML, CSS, JavaScript</li>
-            <li>Python, Java, etc.</li>
+            <li>Python, React, Node.js</li>
+            <li>Desarrollo de APIs y aplicaciones web</li>
             <!-- Agrega tus habilidades aquí -->
         </ul>
     </section>
 
     <!-- Sección Testimonios -->
-    <section id="testimonios">
+    <section id="testimonios" class="fade-in">
         <h2>Testimonios</h2>
-        <p>"Este es un testimonio de alguien con quien trabajaste."</p>
-        <!-- Más testimonios si los tienes -->
+        <p>"Trabajar con [tu nombre] fue una experiencia increíble. Siempre entrega resultados espectaculares." - Cliente Satisfecho</p>
+        <!-- Más testimonios -->
     </section>
 
     <!-- Sección de Contacto -->
-    <section id="contacto">
+    <section id="contacto" class="fade-in">
         <h2>Contacto</h2>
-        <p>¿Tienes preguntas o comentarios? Contáctame:</p>
+        <p>¿Tienes preguntas o comentarios? ¡Contáctame!</p>
         <form action="#" method="POST">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
@@ -151,7 +225,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 Mi Portafolio. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Mi Portafolio Galáctico. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>
