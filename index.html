@@ -1,234 +1,240 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Portafolio Galáctico</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #2c3e50, #8e44ad); /* Galaxia de colores */
-            color: white;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Infinity Studio - Servicios Minecraft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background-color: #0b0b0b;
+      color: #eee;
+    }
 
-        header {
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
+    header {
+      background-color: #111;
+      padding: 30px 0;
+      border-bottom: 2px solid #d60000;
+      text-align: center;
+    }
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-        }
+    header h1 {
+      color: #d60000;
+      font-size: 2.8rem;
+      margin: 0;
+    }
 
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
+    nav {
+      margin-top: 15px;
+    }
 
-        nav ul li a {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-size: 18px;
-            transition: color 0.3s ease;
-        }
+    nav a {
+      color: #ccc;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
 
-        nav ul li a:hover {
-            color: #f39c12; /* Color dorado */
-        }
+    nav a:hover {
+      color: #d60000;
+    }
 
-        .hero {
-            margin-top: 30px;
-            font-size: 24px;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
-        }
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
 
-        /* Card Style for Sections */
-        .card {
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            margin-bottom: 40px;
-            transition: transform 0.3s ease-in-out;
-        }
+    h2 {
+      border-left: 4px solid #d60000;
+      padding-left: 10px;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
 
-        .card:hover {
-            transform: translateY(-10px);
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
 
-        h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #ecf0f1;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-        }
+    .card {
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 20px;
+      transition: 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
 
-        h3 {
-            color: #f39c12;
-        }
+    .card:hover {
+      border-color: #d60000;
+      transform: scale(1.03);
+    }
 
-        /* Form Styles */
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .card h3 {
+      color: #ff1a1a;
+      margin: 0 0 10px;
+    }
 
-        form input, form textarea {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
+    .card p {
+      color: #aaa;
+      font-size: 0.95rem;
+    }
 
-        form button {
-            padding: 10px 20px;
-            background-color: #8e44ad;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .testimonial {
+      background-color: #1a1a1a;
+      border-left: 4px solid #d60000;
+      padding: 20px;
+      border-radius: 8px;
+    }
 
-        form button:hover {
-            background-color: #f39c12;
-        }
+    .testimonial h4 {
+      color: #ff1a1a;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #2c3e50;
-            color: white;
-        }
+    footer {
+      background-color: #111;
+      color: #666;
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+      font-size: 0.85rem;
+    }
 
-        /* Animaciones para secciones */
-        .fade-in {
-            animation: fadeIn 1s ease-out;
-        }
+    section {
+      display: none;
+      padding: 40px 0;
+    }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* Background Stars */
-        .background-stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            background-size: cover;
-            z-index: -1;
-            opacity: 0.3;
-        }
-    </style>
+    section.active {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-    <!-- Background Stars -->
-    <div class="background-stars"></div>
+  <header>
+    <h1>Infinity Studio</h1>
+    <nav>
+      <a href="#" onclick="showSection('inicio')">Inicio</a>
+      <a href="#" onclick="showSection('servicios')">Servicios</a>
+      <a href="#" onclick="showSection('proyectos')">Proyectos</a>
+      <a href="#" onclick="showSection('testimonios')">Testimonios</a>
+      <a href="#" onclick="showSection('contacto')">Contacto</a>
+    </nav>
+  </header>
 
-    <!-- Sección de Inicio -->
-    <header id="inicio">
-        <nav>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#sobre-mi">Sobre mí</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#testimonios">Testimonios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-        <div class="hero fade-in">
-            <h1>Bienvenido a mi Portafolio Galáctico</h1>
-            <p>Explora mi universo de proyectos y habilidades.</p>
-        </div>
-    </header>
-
-    <!-- Sección Sobre mí -->
-    <section id="sobre-mi" class="fade-in">
+  <main>
+    <section id="inicio" class="active">
+      <h2>Bienvenido a Infinity Studio</h2>
+      <p>Un universo de soluciones para servidores Minecraft. Plugins, configuraciones, bots y mucho más.</p>
+      <div class="grid">
         <div class="card">
-            <h2>Sobre mí</h2>
-            <p>Aquí va una breve descripción de tu experiencia, educación, habilidades y metas. ¡Hazlo único y atractivo!</p>
+          <h3>¿Quiénes somos?</h3>
+          <p>Somos un estudio enfocado en el desarrollo personalizado y profesional de servidores Minecraft.</p>
         </div>
+        <div class="card">
+          <h3>¿Qué ofrecemos?</h3>
+          <p>Desde programación de plugins y sistemas de economía, hasta paneles web y soporte.</p>
+        </div>
+        <div class="card">
+          <h3>Únete a nosotros</h3>
+          <p>Explora nuestros servicios y lleva tu servidor al infinito... y más allá.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Sección Proyectos -->
-    <section id="proyectos" class="fade-in">
+    <section id="servicios">
+      <h2>Nuestros Servicios</h2>
+      <div class="grid">
         <div class="card">
-            <h2>Proyectos</h2>
-            <div class="proyecto">
-                <h3>Proyecto 1: Galaxia Web</h3>
-                <p>Este proyecto es una página interactiva con temas galácticos que muestra el potencial de mi trabajo.</p>
-            </div>
-            <div class="proyecto">
-                <h3>Proyecto 2: CosmoApp</h3>
-                <p>Una aplicación móvil que conecta usuarios con conocimientos sobre astronomía y viajes espaciales.</p>
-            </div>
-            <!-- Más proyectos -->
+          <h3>Desarrollo de Plugins</h3>
+          <p>Plugins hechos a medida para una experiencia única en tu servidor.</p>
         </div>
+        <div class="card">
+          <h3>Configuraciones Avanzadas</h3>
+          <p>Configuramos cualquier plugin para que funcione al 100% en tu red.</p>
+        </div>
+        <div class="card">
+          <h3>Optimización de Rendimiento</h3>
+          <p>Mejoras de TPS, uso de RAM y red para servidores exigentes.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Sección Habilidades -->
-    <section id="habilidades" class="fade-in">
+    <section id="proyectos">
+      <h2>Proyectos Recientes</h2>
+      <div class="grid">
         <div class="card">
-            <h2>Habilidades</h2>
-            <ul>
-                <li>HTML, CSS, JavaScript</li>
-                <li>Python, React, Node.js</li>
-                <li>Desarrollo de APIs y aplicaciones web</li>
-                <!-- Agrega tus habilidades aquí -->
-            </ul>
+          <h3>Servidor HCF</h3>
+          <p>Plugin tipo Lazarus, permisos integrados y sistema de muerte inteligente.</p>
         </div>
+        <div class="card">
+          <h3>Red SkyPvP</h3>
+          <p>Configuración y estética profesional con panel de control web.</p>
+        </div>
+        <div class="card">
+          <h3>Servidor RPG</h3>
+          <p>Misiones, niveles, objetos y habilidades únicas totalmente custom.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Sección Testimonios -->
-    <section id="testimonios" class="fade-in">
-        <div class="card">
-            <h2>Testimonios</h2>
-            <p>"Trabajar con [tu nombre] fue una experiencia increíble. Siempre entrega resultados espectaculares." - Cliente Satisfecho</p>
-            <!-- Más testimonios -->
+    <section id="testimonios">
+      <h2>Lo que dicen nuestros clientes</h2>
+      <div class="grid">
+        <div class="testimonial">
+          <p>"Infinity Studio nos ayudó a crear un servidor increíble. ¡Recomendados!"</p>
+          <h4>- Admin de RedPvP</h4>
         </div>
+        <div class="testimonial">
+          <p>"Gran calidad, soporte rápido y un trabajo muy profesional."</p>
+          <h4>- Owner de NexusRPG</h4>
+        </div>
+        <div class="testimonial">
+          <p>"Todo funcionó perfecto desde el primer día, superó mis expectativas."</p>
+          <h4>- SkyBlock Universe</h4>
+        </div>
+      </div>
     </section>
 
-    <!-- Sección de Contacto -->
-    <section id="contacto" class="fade-in">
+    <section id="contacto">
+      <h2>Contáctanos</h2>
+      <div class="grid">
         <div class="card">
-            <h2>Contacto</h2>
-            <p>¿Tienes preguntas o comentarios? ¡Contáctame!</p>
-            <form action="#" method="POST">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-
-                <label for="email">Correo electrónico:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" required></textarea>
-
-                <button type="submit">Enviar</button>
-            </form>
+          <h3>Email</h3>
+          <p>contacto@infinitystudio.dev</p>
         </div>
-    </
+        <div class="card">
+          <h3>Redes Sociales</h3>
+          <p>Twitter, Instagram, TikTok - Síguenos como @InfinityStudioMC</p>
+        </div>
+        <div class="card">
+          <h3>Discord</h3>
+          <p>Únete a nuestro Discord para soporte directo y novedades.</p>
+          <a href="https://discord.gg/TGqKz6AhME" target="_blank" style="color: #d60000; font-weight: 600; text-decoration: none;">Entrar al Discord</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Infinity Studio - Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+    }
+  </script>
+</body>
+</html>
