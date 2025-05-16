@@ -114,6 +114,48 @@
       pointer-events: none;
       background: transparent;
     }
+
+    /* Estilo para la sección de inicio */
+    #inicio {
+      text-align: center;
+      padding-top: 100px;
+      padding-bottom: 120px;
+      font-size: 1.3em;
+      color: #a8d8ff;
+      text-shadow: 0 0 12px #00cfff;
+    }
+
+    #inicio h2 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #60cfff;
+      text-shadow: 0 0 18px #00dfff;
+    }
+
+    #inicio p {
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6em;
+    }
+
+    #inicio a.cta-button {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 15px 40px;
+      background: #00e0ff;
+      color: #00222a;
+      font-weight: bold;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 0 15px #00e0ff;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    #inicio a.cta-button:hover {
+      background: #0088aa;
+      color: #a0f0ff;
+      box-shadow: 0 0 30px #00e0ff;
+    }
   </style>
 </head>
 <body>
@@ -124,11 +166,20 @@
   <header>
     <h1>Infinity Studios - Portafolio</h1>
     <nav>
+      <a href="#inicio">Inicio</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#testimonios">Testimonios</a>
       <a href="#contacto">Contacto</a>
     </nav>
   </header>
+
+  <section id="inicio">
+    <h2>Bienvenido a Infinity Studios</h2>
+    <p>
+      Somos un equipo dedicado a crear soluciones tecnológicas personalizadas para comunidades gaming y servidores de Minecraft. Explora nuestros proyectos y descubre cómo podemos ayudarte a llevar tu servidor o comunidad al siguiente nivel.
+    </p>
+    <a href="#proyectos" class="cta-button">Ver Proyectos</a>
+  </section>
 
   <section id="proyectos">
     <h2 class="section-title">Proyectos</h2>
@@ -237,5 +288,3 @@
 
 </body>
 </html>
-
-
