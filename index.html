@@ -1,321 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Infinity Studio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Infinity Studios - Portafolio Minecraft</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
     body {
       margin: 0;
-      font-family: 'Rubik', sans-serif;
-      background: radial-gradient(ellipse at bottom, #0d0d1a 0%, #000000 100%);
-      color: #eee;
-      overflow-x: hidden;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: #e0d4ff;
     }
 
     header {
-      background-color: #111;
-      padding: 30px 0;
+      background: rgba(0, 0, 0, 0.6);
       text-align: center;
-      border-bottom: 2px solid #d60000;
+      padding: 2rem;
+      border-bottom: 2px solid #6a0dad;
     }
 
     header h1 {
-      font-size: 2.8rem;
-      color: #d60000;
+      font-size: 2.5rem;
+      color: #9f5cff;
       margin: 0;
     }
 
-    nav {
-      margin-top: 15px;
-    }
-
-    nav a {
-      color: #ccc;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #d60000;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    h2 {
-      border-left: 4px solid #d60000;
-      padding-left: 10px;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background-color: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 20px;
-      transition: 0.3s;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    .card:hover {
-      border-color: #d60000;
-      transform: scale(1.03);
-    }
-
-    .card h3 {
-      color: #ff1a1a;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: #aaa;
-      font-size: 0.95rem;
-    }
-
-    footer {
-      background-color: #111;
-      color: #666;
-      text-align: center;
-      padding: 20px;
-      margin-top: 60px;
-      font-size: 0.85rem;
+    header p {
+      margin-top: 0.5rem;
+      color: #c7b8ff;
     }
 
     section {
-      display: none;
-      padding: 40px 0;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
     }
 
-    section.active {
-      display: block;
+    .card {
+      background: rgba(20, 20, 40, 0.8);
+      border: 1px solid #6a0dad;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px #9f5cff50;
     }
 
-    .testimonial {
-      background-color: #1a1a1a;
-      border-left: 4px solid #d60000;
-      padding: 20px;
-      border-radius: 10px;
-      color: #ccc;
+    h2 {
+      color: #cfaaff;
+      border-bottom: 2px solid #9f5cff;
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
     }
 
-    input, textarea {
-      background-color: #1a1a1a;
-      color: #eee;
-      border: 1px solid #333;
-      border-radius: 5px;
+    h3 {
+      color: #a579ff;
+      margin-top: 0;
     }
 
-    button {
-      background-color: #d60000;
-      color: #fff;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    button:hover {
-      background-color: #ff1a1a;
+    .skill {
+      background-color: #4b3b7a;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+      border-top: 1px solid #333;
+    }
+
+    a {
+      color: #a579ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .skills {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <canvas id="stars"></canvas>
 
   <header>
-    <h1>Infinity Studio</h1>
-    <nav>
-      <a href="#" onclick="showSection('inicio')">Inicio</a>
-      <a href="#" onclick="showSection('servicios')">Servicios</a>
-      <a href="#" onclick="showSection('proyectos')">Proyectos</a>
-      <a href="#" onclick="showSection('testimonios')">Testimonios</a>
-      <a href="#" onclick="showSection('contacto')">Contacto</a>
-    </nav>
+    <h1>Infinity Studios</h1>
+    <p>Construyendo mundos entre estrellas y bloques</p>
   </header>
 
-  <main>
-    <section id="inicio" class="active">
-      <h2>Bienvenido a Infinity Studio</h2>
-      <p>Desarrollamos soluciones personalizadas para servidores Minecraft: plugins, configuraciones, bots y más.</p>
-      <div class="grid">
-        <div class="card">
-          <h3>Experiencia</h3>
-          <p>Años creando sistemas únicos para servidores premium y comunidades en crecimiento.</p>
-        </div>
-        <div class="card">
-          <h3>Calidad</h3>
-          <p>Solo entregamos resultados optimizados, seguros y listos para producción.</p>
-        </div>
-        <div class="card">
-          <h3>Soporte</h3>
-          <p>Asistencia rápida y dedicada para asegurar el éxito de tu proyecto.</p>
-        </div>
-      </div>
-    </section>
+  <section>
+    <h2>🚀 Proyectos Destacados</h2>
 
-    <section id="servicios">
-      <h2>Servicios</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Plugins Personalizados</h3>
-          <p>Creamos sistemas exclusivos para que tu servidor sea único.</p>
-        </div>
-        <div class="card">
-          <h3>Configuración Avanzada</h3>
-          <p>Desde permissions hasta menús, todo listo para usar.</p>
-        </div>
-        <div class="card">
-          <h3>Optimización</h3>
-          <p>Mejoramos el rendimiento y eliminamos el lag de tu servidor.</p>
-        </div>
-      </div>
-    </section>
+    <div class="card">
+      <h3>GalaxyPrison [1.20+]</h3>
+      <p>Servidor tipo Prison ambientado en estaciones espaciales y planetas alienígenas.</p>
+      <ul>
+        <li>Economía personalizada, rangos espaciales, builds futuristas</li>
+        <li>Versión: Minecraft Java 1.20</li>
+        <li>Estado: En desarrollo</li>
+      </ul>
+    </div>
 
-    <section id="proyectos">
-      <h2>Proyectos Recientes</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Servidor HCF</h3>
-          <p>Plugin tipo Lazarus, GUI y timers únicos.</p>
-        </div>
-        <div class="card">
-          <h3>Servidor RPG</h3>
-          <p>Misiones, sistemas de progreso y dungeons personalizadas.</p>
-        </div>
-        <div class="card">
-          <h3>Servidor Skyblock</h3>
-          <p>Economía avanzada, misiones y boosts automáticos.</p>
-        </div>
-      </div>
-    </section>
+    <div class="card">
+      <h3>NebulaHub</h3>
+      <p>Lobby galáctico con portales flotantes, partículas y shaders temáticos.</p>
+    </div>
 
-    <section id="testimonios">
-      <h2>Testimonios</h2>
-      <div class="grid">
-        <div class="testimonial">
-          <p>"Infinity Studio elevó nuestro servidor a otro nivel."</p>
-          <h4>— Admin de LunarMC</h4>
-        </div>
-        <div class="testimonial">
-          <p>"Gracias al equipo, lanzamos a tiempo y sin bugs."</p>
-          <h4>— Fundador de Mythica</h4>
-        </div>
-        <div class="testimonial">
-          <p>"Rápidos, eficientes y con resultados impresionantes."</p>
-          <h4>— Owner de NexusBlock</h4>
-        </div>
-      </div>
-    </section>
+    <div class="card">
+      <h3>Mapa de Aventura – Eclipse Cósmico</h3>
+      <p>Explora una galaxia lejana con mobs personalizados, historia original y desafíos cósmicos.</p>
+    </div>
+  </section>
 
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <form action="https://formspree.io/f/movdnald" method="POST" id="contact-form" style="max-width: 600px; margin: 0 auto;">
-        <label for="nombre">Nombre:</label><br>
-        <input type="text" name="nombre" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+  <section>
+    <h2>🧱 Habilidades</h2>
+    <div class="skills">
+      <div class="skill">Diseño de Builds</div>
+      <div class="skill">Plugins & Spigot</div>
+      <div class="skill">Datapacks</div>
+      <div class="skill">Texturas & UI</div>
+      <div class="skill">Liderazgo de comunidades</div>
+    </div>
+  </section>
 
-        <label for="email">Correo Electrónico:</label><br>
-        <input type="email" name="email" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
-
-        <label for="mensaje">Mensaje:</label><br>
-        <textarea name="mensaje" rows="5" required style="width: 100%; padding: 10px; margin-bottom: 20px;"></textarea><br>
-
-        <button type="submit">Enviar Mensaje</button>
-        <p id="form-status" style="margin-top: 20px; display: none; color: #0f0;"></p>
-      </form>
-    </section>
-  </main>
+  <section>
+    <h2>🌐 Contacto</h2>
+    <p>Discord: <strong>InfinityStudios#0000</strong><br>
+    Email: <a href="mailto:contacto@infinitystudios.com">contacto@infinitystudios.com</a><br>
+    Servidor / IP: <strong>play.infinitystudios.net</strong></p>
+  </section>
 
   <footer>
-    <p>&copy; 2025 Infinity Studio - Todos los derechos reservados</p>
+    © 2025 Infinity Studios – Todos los derechos reservados. Minecraft no está afiliado a este sitio.
   </footer>
 
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    const form = document.getElementById("contact-form");
-    const status = document.getElementById("form-status");
-
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const data = new FormData(form);
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
-        status.style.display = "block";
-        status.textContent = "¡Mensaje enviado con éxito! Te responderemos pronto.";
-        form.reset();
-      } else {
-        status.style.display = "block";
-        status.style.color = "#f00";
-        status.textContent = "Error al enviar el mensaje.";
-      }
-    });
-
-    // Fondo de estrellas animadas
-    const canvas = document.getElementById("stars");
-    const ctx = canvas.getContext("2d");
-    let w, h, stars = [];
-
-    function initStars() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-      stars = Array.from({ length: 100 }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.2,
-        dx: (Math.random() - 0.5) * 0.2,
-        dy: (Math.random() - 0.5) * 0.2
-      }));
-    }
-
-    function drawStars() {
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "#fff";
-      stars.forEach(s => {
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
-        s.x += s.dx;
-        s.y += s.dy;
-
-        if (s.x < 0 || s.x > w) s.dx *= -1;
-        if (s.y < 0 || s.y > h) s.dy *= -1;
-      });
-      requestAnimationFrame(drawStars);
-    }
-
-    window.addEventListener('resize', initStars);
-    initStars();
-    drawStars();
-  </script>
 </body>
 </html>
