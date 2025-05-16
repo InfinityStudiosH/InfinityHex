@@ -1,156 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Infinity Studios - Portafolio Minecraft</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Infinity Studios - Portafolio</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-      color: #e0d4ff;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
     }
-
     header {
-      background: rgba(0, 0, 0, 0.6);
+      background-color: #1f1f1f;
+      padding: 20px;
       text-align: center;
-      padding: 2rem;
-      border-bottom: 2px solid #6a0dad;
+      border-bottom: 2px solid #4e4e4e;
     }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: #9f5cff;
-      margin: 0;
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
     }
-
-    header p {
-      margin-top: 0.5rem;
-      color: #c7b8ff;
-    }
-
     section {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
+      padding: 40px 20px;
     }
-
-    .card {
-      background: rgba(20, 20, 40, 0.8);
-      border: 1px solid #6a0dad;
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 0 20px #9f5cff50;
+    .section-title {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #00bcd4;
     }
-
-    h2 {
-      color: #cfaaff;
-      border-bottom: 2px solid #9f5cff;
-      padding-bottom: 0.3rem;
-      margin-bottom: 1rem;
+    .projects, .testimonials, .contact {
+      max-width: 900px;
+      margin: 0 auto;
     }
-
-    h3 {
-      color: #a579ff;
-      margin-top: 0;
+    .project-card {
+      background-color: #1e1e1e;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-left: 4px solid #00bcd4;
+      border-radius: 8px;
     }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
+    .testimonial {
+      background-color: #1a1a1a;
+      padding: 15px;
+      border-left: 4px solid #4caf50;
+      margin-bottom: 20px;
+      border-radius: 8px;
     }
-
-    .skill {
-      background-color: #4b3b7a;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-    }
-
     footer {
       text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #aaa;
-      border-top: 1px solid #333;
-    }
-
-    a {
-      color: #a579ff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.8rem;
-      }
-
-      .skills {
-        flex-direction: column;
-      }
+      padding: 20px;
+      background-color: #1f1f1f;
+      border-top: 2px solid #4e4e4e;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Infinity Studios</h1>
-    <p>Construyendo mundos entre estrellas y bloques</p>
+    <h1>Infinity Studios - Portafolio</h1>
+    <nav>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
   </header>
 
-  <section>
-    <h2>🚀 Proyectos Destacados</h2>
+  <section id="proyectos">
+    <h2 class="section-title">Proyectos</h2>
+    <div class="projects">
+      <div class="project-card">
+        <h3>BostCore "Bot"</h3>
+        <p>Bot multifunción diseñado para servidores Minecraft. Incluye sistema de tickets, niveles, staff tools y funciones automatizadas.</p>
+      </div>
+      <div class="project-card">
+        <h3>EternityMC Network</h3>
+        <p>Bot de Discord personalizado para enviar embed 100% personalizable.</p>
+      </div>
+      <div class="project-card">
+        <h3>Infinity Studios Bot</h3>
+        <p>Bot oficial de Infinity Studios con comandos premium, gestión de soporte, anuncios, invitaciones y más. Ideal para comunidades gaming.</p>
+      </div>
+    </div>
+  </section>
 
-    <div class="card">
-      <h3>GalaxyPrison [1.20+]</h3>
-      <p>Servidor tipo Prison ambientado en estaciones espaciales y planetas alienígenas.</p>
+  <section id="testimonios">
+    <h2 class="section-title">Testimonios</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p><strong>@AndresGamer:</strong> "Infinity Studios transformó nuestro servidor con un bot que automatizó todo el soporte. ¡Recomendado!"</p>
+      </div>
+      <div class="testimonial">
+        <p><strong>@PixelKing:</strong> "El plugin de harvester hoes nos ayudó a aumentar la retención de jugadores. ¡Vale cada centavo!"</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <h2 class="section-title">Contacto</h2>
+    <div class="contact">
+      <p>¿Interesado en trabajar con nosotros? Contáctanos:</p>
       <ul>
-        <li>Economía personalizada, rangos espaciales, builds futuristas</li>
-        <li>Versión: Minecraft Java 1.20</li>
-        <li>Estado: En desarrollo</li>
+        <li>💬 Discord: <strong>infinitystudios#0001</strong></li>
+        <li>📧 Email: <strong>contacto@infinitystudios.dev</strong></li>
       </ul>
     </div>
-
-    <div class="card">
-      <h3>NebulaHub</h3>
-      <p>Lobby galáctico con portales flotantes, partículas y shaders temáticos.</p>
-    </div>
-
-    <div class="card">
-      <h3>Mapa de Aventura – Eclipse Cósmico</h3>
-      <p>Explora una galaxia lejana con mobs personalizados, historia original y desafíos cósmicos.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>🧱 Habilidades</h2>
-    <div class="skills">
-      <div class="skill">Diseño de Builds</div>
-      <div class="skill">Plugins & Spigot</div>
-      <div class="skill">Datapacks</div>
-      <div class="skill">Texturas & UI</div>
-      <div class="skill">Liderazgo de comunidades</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>🌐 Contacto</h2>
-    <p>Discord: <strong>InfinityStudios#0000</strong><br>
-    Email: <a href="mailto:contacto@infinitystudios.com">contacto@infinitystudios.com</a><br>
-    Servidor / IP: <strong>play.infinitystudios.net</strong></p>
   </section>
 
   <footer>
-    © 2025 Infinity Studios – Todos los derechos reservados. Minecraft no está afiliado a este sitio.
+    &copy; 2025 Infinity Studios. Todos los derechos reservados.
   </footer>
 
 </body>
