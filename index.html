@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Infinity Studios - Portafolio</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body, html {
       margin: 0; padding: 0; height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,6 +42,7 @@
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s ease;
+      cursor: pointer;
     }
 
     nav a:hover {
@@ -47,10 +52,16 @@
 
     section {
       padding: 60px 20px;
-      max-width: 900px;
-      margin: 0 auto;
+      max-width: 1000px;
+      margin: 60px auto 0;
       position: relative;
       z-index: 1;
+      border-top: 2px solid rgba(255, 255, 255, 0.05);
+      display: none; /* ocultar por defecto */
+    }
+
+    section.active {
+      display: block;
     }
 
     .section-title {
@@ -61,18 +72,43 @@
       text-shadow: 0 0 8px #00f2ff;
     }
 
-    .project-card, .testimonial {
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .project-card, .testimonial, .contact-card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 20px;
-      margin-bottom: 25px;
+      width: 280px;
+      height: 280px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0, 225, 255, 0.1);
       backdrop-filter: blur(4px);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover,
+    .testimonial:hover,
+    .contact-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
     }
 
     .testimonial {
       border-left: 4px solid #7effa9;
+    }
+
+    .contact-card {
+      border-left: 4px solid #ffd36d;
     }
 
     footer {
@@ -81,7 +117,7 @@
       background: rgba(20, 20, 60, 0.85);
       border-top: 2px solid rgba(100, 100, 255, 0.3);
       backdrop-filter: blur(10px);
-      margin-top: 40px;
+      margin-top: 60px;
       position: relative;
       z-index: 1;
     }
@@ -93,6 +129,7 @@
       font-size: 1.3em;
       color: #a8d8ff;
       text-shadow: 0 0 12px #00cfff;
+      display: block; /* visible por defecto */
     }
 
     #inicio h2 {
@@ -133,63 +170,76 @@
   <header>
     <h1>Infinity Studios - Portafolio</h1>
     <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#testimonios">Testimonios</a>
-      <a href="#contacto">Contacto</a>
+      <a onclick="mostrarSeccion('inicio')">Inicio</a>
+      <a onclick="mostrarSeccion('proyectos')">Proyectos</a>
+      <a onclick="mostrarSeccion('testimonios')">Testimonios</a>
+      <a onclick="mostrarSeccion('contacto')">Contacto</a>
     </nav>
   </header>
 
-  <section id="inicio">
+  <section id="inicio" class="active">
     <h2>Bienvenido a Infinity Studios</h2>
     <p>
       Somos un equipo dedicado a crear soluciones tecnológicas personalizadas para comunidades gaming y servidores de Minecraft. Explora nuestros proyectos y descubre cómo podemos ayudarte a llevar tu servidor o comunidad al siguiente nivel.
     </p>
-    <a href="#proyectos" class="cta-button">Ver Proyectos</a>
+    <a href="#proyectos" class="cta-button" onclick="mostrarSeccion('proyectos')">Ver Proyectos</a>
   </section>
 
   <section id="proyectos">
     <h2 class="section-title">Proyectos</h2>
-
-    <div class="project-card">
-      <h3>BostCore "Bot"</h3>
-      <p>Bot multifunción diseñado para servidores Minecraft. Incluye sistema de tickets, niveles, staff tools y funciones automatizadas.</p>
+    <div class="cards-container">
+      <div class="project-card">
+        <h3>BostCore "Bot"</h3>
+        <p>Bot multifunción diseñado para servidores Minecraft. Incluye sistema de tickets, niveles, staff tools y funciones automatizadas.</p>
+      </div>
+      <div class="project-card">
+        <h3>Eternity MC</h3>
+        <p>Servidor de Minecraft con enfoque PvP, sistema de rangos, tienda personalizada, economía y eventos automáticos.</p>
+      </div>
+      <div class="project-card">
+        <h3>Infinity Studios "Bot"</h3>
+        <p>Bot personalizado con sistema de niveles, mensajes de bienvenida, estadísticas de invitaciones, tickets, reviews y más.</p>
+      </div>
     </div>
-
-    <div class="project-card">
-      <h3>Eternity MC</h3>
-      <p>Servidor de Minecraft con enfoque PvP, sistema de rangos, tienda personalizada, economía y eventos automáticos.</p>
-    </div>
-
-    <div class="project-card">
-      <h3>Infinity Studios "Bot"</h3>
-      <p>Bot personalizado con sistema de niveles, mensajes de bienvenida, estadísticas de invitaciones, tickets, reviews y más.</p>
-    </div>
-
   </section>
 
   <section id="testimonios">
     <h2 class="section-title">Testimonios</h2>
-    <div class="testimonial">
-      <p><strong>@AndresGamer:</strong> "Infinity Studios transformó nuestro servidor con un bot que automatizó todo el soporte. ¡Recomendado!"</p>
-    </div>
-    <div class="testimonial">
-      <p><strong>@PixelKing:</strong> "El plugin de harvester hoes nos ayudó a aumentar la retención de jugadores. ¡Vale cada centavo!"</p>
+    <div class="cards-container">
+      <div class="testimonial">
+        <p><strong>@AndresGamer:</strong> "Infinity Studios transformó nuestro servidor con un bot que automatizó todo el soporte. ¡Recomendado!"</p>
+      </div>
+      <div class="testimonial">
+        <p><strong>@PixelKing:</strong> "El plugin de harvester hoes nos ayudó a aumentar la retención de jugadores. ¡Vale cada centavo!"</p>
+      </div>
     </div>
   </section>
 
   <section id="contacto">
     <h2 class="section-title">Contacto</h2>
-    <p>¿Interesado en trabajar con nosotros? Contáctanos:</p>
-    <ul>
-      <li>💬 Discord: <strong>Shadow</strong></li>
-      <li>📧 Email: <strong>contacto@infinitystudios.dev</strong></li>
-    </ul>
+    <div class="cards-container">
+      <div class="contact-card">
+        <h3>💬 Discord</h3>
+        <p><strong>Shadow</strong></p>
+      </div>
+      <div class="contact-card">
+        <h3>📧 Email</h3>
+        <p><strong>contacto@infinitystudios.dev</strong></p>
+      </div>
+    </div>
   </section>
 
   <footer>
     &copy; 2025 Infinity Studios. Todos los derechos reservados.
   </footer>
+
+  <script>
+    function mostrarSeccion(id) {
+      const secciones = document.querySelectorAll('section');
+      secciones.forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
