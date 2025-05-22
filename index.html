@@ -5,95 +5,155 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Generador de Colores HEX con Gradiente | AlonsoAliaga Development</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  /* Reset básico */
+  * {
+    box-sizing: border-box;
+  }
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
-    color: #ddd;
-    margin: 20px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #eee;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   h1 {
+    font-weight: 600;
+    font-size: 2.8rem;
+    background: linear-gradient(90deg, #9a14ff, #ff59ca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
     text-align: center;
-    color: #9a14ff;
+    user-select: none;
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 10px rgba(154, 20, 255, 0.5);
   }
   #controls {
+    background: rgba(30, 10, 60, 0.85);
+    padding: 30px 30px 40px 30px;
+    border-radius: 16px;
     max-width: 600px;
-    margin: 15px auto;
-    padding: 15px;
-    background: rgba(30, 10, 60, 0.7);
-    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 8px 30px rgba(154, 20, 255, 0.4);
+    backdrop-filter: saturate(180%) blur(12px);
+  }
+  #paletteInputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 20px;
   }
   #paletteInputs input[type=color] {
-    margin: 5px 5px 15px 0;
-    width: 50px;
-    height: 40px;
+    width: 52px;
+    height: 52px;
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
     cursor: pointer;
-    box-shadow: 0 0 6px #9a14ff;
+    box-shadow: 0 0 12px #9a14ff88;
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+  }
+  #paletteInputs input[type=color]:hover,
+  #paletteInputs input[type=color]:focus {
+    outline: none;
+    box-shadow: 0 0 18px #ff59cadd;
+    transform: scale(1.1);
   }
   button {
-    background-color: #9a14ff;
+    background: linear-gradient(90deg, #9a14ff, #ff59ca);
     border: none;
     color: white;
-    padding: 10px 14px;
-    margin: 10px 5px 10px 0;
-    border-radius: 6px;
+    padding: 14px 24px;
+    margin-right: 14px;
+    border-radius: 14px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 6px 16px #9a14ffbb;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    user-select: none;
+  }
+  button:last-child {
+    margin-right: 0;
   }
   button:hover {
-    background-color: #7a0ecc;
+    background: linear-gradient(90deg, #ff59ca, #9a14ff);
+    box-shadow: 0 8px 24px #ff59cacc;
+    transform: scale(1.05);
   }
-  #gradientPreview {
-    width: 100%;
-    height: 40px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #9a14ff;
-    margin-top: 10px;
-  }
-  #outputCSS {
-    margin-top: 15px;
-    padding: 12px;
-    background-color: rgba(30, 10, 60, 0.9);
-    border-radius: 10px;
-    font-family: monospace;
-    user-select: all;
-    cursor: pointer;
-    box-shadow: 0 0 12px #9a14ff;
+  button:active {
+    transform: scale(0.95);
   }
   #customTextInput {
     width: 100%;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 1.15rem;
+    border-radius: 14px;
     border: none;
-    margin-top: 15px;
-    box-shadow: 0 0 10px #9a14ff inset;
-    background-color: rgba(40, 20, 70, 0.7);
-    color: #ddd;
+    background: rgba(255 255 255 / 0.1);
+    color: #eee;
+    box-shadow: inset 0 0 14px #9a14ff88;
+    margin: 20px 0 28px 0;
+    transition: background-color 0.3s ease;
+  }
+  #customTextInput::placeholder {
+    color: #bbb;
+  }
+  #customTextInput:focus {
+    background: rgba(255 255 255 / 0.18);
+    outline: none;
+    box-shadow: inset 0 0 22px #ff59caaa;
+  }
+  #gradientPreview {
+    width: 100%;
+    height: 48px;
+    border-radius: 18px;
+    box-shadow: 0 0 28px #9a14ffbb;
+    margin-top: 12px;
+    transition: background 0.5s ease;
+  }
+  #outputCSS {
+    margin-top: 25px;
+    padding: 16px 22px;
+    background: rgba(255 255 255 / 0.07);
+    border-radius: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0 18px #9a14ffaa;
+    user-select: all;
+    transition: background-color 0.3s ease;
+  }
+  #outputCSS:hover {
+    background: rgba(255 255 255 / 0.15);
   }
   #previewText {
     max-width: 600px;
-    margin: 30px auto 10px auto;
+    margin: 40px auto 0 auto;
     text-align: center;
+    user-select: none;
   }
   #previewText span {
     cursor: pointer;
     display: inline-block;
-    padding: 10px 20px;
-    margin: 10px 12px;
-    border-radius: 8px;
-    font-size: 22px;
+    padding: 18px 34px;
+    margin: 0 16px;
+    border-radius: 14px;
+    font-size: 2rem;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    user-select: none;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 0 20px #9a14ffbb;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
   #previewText span:hover {
-    background-color: rgba(154, 20, 255, 0.3);
-    color: transparent;
+    box-shadow: 0 0 38px #ff59caff;
+    transform: scale(1.1);
   }
   #previewText span.bold {
     font-weight: 700;
@@ -130,6 +190,24 @@
     from { bottom: 30px; opacity: 1; }
     to { bottom: 0; opacity: 0; }
   }
+  /* Responsive */
+  @media (max-width: 640px) {
+    #paletteInputs {
+      justify-content: center;
+    }
+    button {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    #controls {
+      padding: 24px 18px 32px 18px;
+    }
+    #previewText span {
+      font-size: 1.5rem;
+      margin: 8px 10px;
+      padding: 12px 22px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -140,21 +218,23 @@
   <div id="paletteInputs">
     <!-- Inputs de colores se generan aquí -->
   </div>
-  <button id="addColorBtn">Agregar color</button>
-  <button id="removeColorBtn">Quitar color</button>
-  <button id="randomPaletteBtn">Paleta aleatoria</button>
-  <input type="text" id="customTextInput" placeholder="Escribe tu texto aquí..." />
-  <div id="gradientPreview"></div>
-  <pre id="outputCSS" title="Haz clic para copiar el CSS"></pre>
+  <div style="display:flex; flex-wrap: wrap; gap: 10px; justify-content: flex-start;">
+    <button id="addColorBtn" title="Agregar un nuevo color a la paleta">Agregar color</button>
+    <button id="removeColorBtn" title="Quitar el último color">Quitar color</button>
+    <button id="randomPaletteBtn" title="Generar una paleta aleatoria">Paleta aleatoria</button>
+  </div>
+  <input type="text" id="customTextInput" placeholder="Escribe tu texto aquí..." aria-label="Texto personalizado para la vista previa"/>
+  <div id="gradientPreview" aria-label="Vista previa del gradiente"></div>
+  <pre id="outputCSS" title="Haz clic para copiar el CSS" aria-live="polite" role="textbox" tabindex="0"></pre>
 </div>
 
-<div id="previewText">
-  <span id="normalText">Texto de ejemplo</span>
-  <span id="boldText" class="bold">Texto de ejemplo</span>
-  <span id="italicText" class="italic">Texto de ejemplo</span>
+<div id="previewText" aria-label="Vista previa del texto con gradiente y estilos">
+  <span id="normalText" tabindex="0" role="button" aria-pressed="false" aria-label="Texto normal: haz clic para copiar">Texto de ejemplo</span>
+  <span id="boldText" class="bold" tabindex="0" role="button" aria-pressed="false" aria-label="Texto en negrita: haz clic para copiar">Texto de ejemplo</span>
+  <span id="italicText" class="italic" tabindex="0" role="button" aria-pressed="false" aria-label="Texto en cursiva: haz clic para copiar">Texto de ejemplo</span>
 </div>
 
-<div id="snackbar">¡Texto copiado! 💎</div>
+<div id="snackbar" role="alert" aria-live="assertive" aria-atomic="true">¡Texto copiado! 💎</div>
 
 <script>
   const paletteInputsDiv = document.getElementById('paletteInputs');
@@ -173,7 +253,6 @@
   const maxColors = 10;
   const minColors = 2;
 
-  // Función para añadir un nuevo input de color
   function addColor(color) {
     if (palette.length >= maxColors) return;
     palette.push(color);
@@ -189,7 +268,6 @@
     updateGradient();
   }
 
-  // Función para quitar último color
   function removeColor() {
     if (palette.length <= minColors) return alert("Debes tener al menos 2 colores.");
     palette.pop();
@@ -198,7 +276,6 @@
     updatePreviewText();
   }
 
-  // Actualizar gradiente y CSS
   function updateGradient() {
     palette = Array.from(paletteInputsDiv.querySelectorAll('input[type=color]')).map(i => i.value);
     const gradient = `linear-gradient(to right, ${palette.join(', ')})`;
@@ -208,7 +285,6 @@
     updatePreviewColors();
   }
 
-  // Aplicar gradiente al texto
   function updatePreviewColors() {
     const gradient = `linear-gradient(to right, ${palette.join(', ')})`;
     [normalTextSpan, boldTextSpan, italicTextSpan].forEach(span => {
@@ -216,15 +292,14 @@
       span.style.webkitBackgroundClip = 'text';
       span.style.backgroundClip = 'text';
       span.style.color = 'transparent';
+      span.style.textShadow = 'none';
     });
   }
 
-  // Generar color HEX aleatorio
   function randomHexColor() {
     return Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');
   }
 
-  // Generar paleta aleatoria
   function randomPalette() {
     paletteInputsDiv.innerHTML = '';
     palette = [];
@@ -235,7 +310,6 @@
     updatePreviewText();
   }
 
-  // Copiar al portapapeles y mostrar notificación
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
       snackbar.classList.add('show');
@@ -243,7 +317,6 @@
     }).catch(() => alert('No se pudo copiar al portapapeles'));
   }
 
-  // Actualizar texto de vista previa con el texto personalizado
   function updatePreviewText() {
     const text = customTextInput.value.trim() || "Texto de ejemplo";
     normalTextSpan.textContent = text;
@@ -251,25 +324,25 @@
     italicTextSpan.textContent = text;
   }
 
-  // Eventos para copiar texto cuando se hace click
   [normalTextSpan, boldTextSpan, italicTextSpan].forEach(span => {
-    span.addEventListener('click', () => {
-      copyToClipboard(span.textContent);
+    span.addEventListener('click', () => copyToClipboard(span.textContent));
+    span.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copyToClipboard(span.textContent);
+      }
     });
   });
 
-  // Copiar CSS al hacer click en outputCSS
   outputCSS.addEventListener('click', () => {
     copyToClipboard(outputCSS.textContent);
   });
 
-  // Eventos para botones
   addColorBtn.addEventListener('click', () => addColor('#'+randomHexColor()));
   removeColorBtn.addEventListener('click', removeColor);
   randomPaletteBtn.addEventListener('click', randomPalette);
   customTextInput.addEventListener('input', updatePreviewText);
 
-  // Inicializar con 3 colores y texto default
   function init() {
     paletteInputsDiv.innerHTML = '';
     palette = [];
