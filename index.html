@@ -135,14 +135,26 @@
   #previewText {
     max-width: 600px;
     margin: 40px auto 0 auto;
-    text-align: center;
     user-select: none;
   }
-  #previewText span {
+  .previewRow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 12px 0;
+    justify-content: center;
+  }
+  .previewLabel {
+    min-width: 75px;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #ff59ca;
+    user-select: none;
+    text-shadow: 0 0 10px #ff59caaa;
+  }
+  #previewText span.textStyle {
     cursor: pointer;
-    display: inline-block;
-    padding: 18px 34px;
-    margin: 0 16px;
+    padding: 14px 28px;
     border-radius: 14px;
     font-size: 2rem;
     background-clip: text;
@@ -150,8 +162,9 @@
     color: transparent;
     box-shadow: 0 0 20px #9a14ffbb;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
+    user-select: text;
   }
-  #previewText span:hover {
+  #previewText span.textStyle:hover {
     box-shadow: 0 0 38px #ff59caff;
     transform: scale(1.1);
   }
@@ -202,10 +215,19 @@
     #controls {
       padding: 24px 18px 32px 18px;
     }
-    #previewText span {
+    .previewRow {
+      flex-direction: column;
+      gap: 6px;
+    }
+    .previewLabel {
+      min-width: auto;
+      font-size: 1.1rem;
+    }
+    #previewText span.textStyle {
       font-size: 1.5rem;
-      margin: 8px 10px;
-      padding: 12px 22px;
+      padding: 12px 20px;
+      width: 100%;
+      text-align: center;
     }
   }
 </style>
@@ -215,7 +237,7 @@
 <h1>Generador de Colores HEX con Gradiente</h1>
 
 <div id="controls">
-  <div id="paletteInputs">
+  <div id="paletteInputs" aria-label="Selector de colores para la paleta">
     <!-- Inputs de colores se generan aquí -->
   </div>
   <div style="display:flex; flex-wrap: wrap; gap: 10px; justify-content: flex-start;">
@@ -229,9 +251,18 @@
 </div>
 
 <div id="previewText" aria-label="Vista previa del texto con gradiente y estilos">
-  <span id="normalText" tabindex="0" role="button" aria-pressed="false" aria-label="Texto normal: haz clic para copiar">Texto de ejemplo</span>
-  <span id="boldText" class="bold" tabindex="0" role="button" aria-pressed="false" aria-label="Texto en negrita: haz clic para copiar">Texto de ejemplo</span>
-  <span id="italicText" class="italic" tabindex="0" role="button" aria-pressed="false" aria-label="Texto en cursiva: haz clic para copiar">Texto de ejemplo</span>
+  <div class="previewRow">
+    <div class="previewLabel">Normal -</div>
+    <span id="normalText" class="textStyle" tabindex="0" role="button" aria-pressed="false" aria-label="Texto normal: haz clic para copiar">Texto de ejemplo</span>
+  </div>
+  <div class="previewRow">
+    <div class="previewLabel">Bold -</div>
+    <span id="boldText" class="textStyle bold" tabindex="0" role="button" aria-pressed="false" aria-label="Texto en negrita: haz clic para copiar">Texto de ejemplo</span>
+  </div>
+  <div class="previewRow">
+    <div class="previewLabel">Italic -</div>
+    <span id="italicText" class="textStyle italic" tabindex="0" role="button" aria-pressed="false" aria-label="Texto en cursiva: haz clic para copiar">Texto de ejemplo</span>
+  </div>
 </div>
 
 <div id="snackbar" role="alert" aria-live="assertive" aria-atomic="true">¡Texto copiado! 💎</div>
@@ -244,115 +275,126 @@
   const gradientPreview = document.getElementById('gradientPreview');
   const outputCSS = document.getElementById('outputCSS');
   const customTextInput = document.getElementById('customTextInput');
+  const normalText = document.getElementById('normalText');
+  const boldText = document.getElementById('boldText');
+  const italicText = document.getElementById('italicText');
   const snackbar = document.getElementById('snackbar');
-  const normalTextSpan = document.getElementById('normalText');
-  const boldTextSpan = document.getElementById('boldText');
-  const italicTextSpan = document.getElementById('italicText');
 
-  let palette = [];
-  const maxColors = 10;
-  const minColors = 2;
+  let colors = ['#9a14ff', '#ff59ca'];
 
-  function addColor(color) {
-    if (palette.length >= maxColors) return;
-    palette.push(color);
+  function createColorInput(value) {
     const input = document.createElement('input');
     input.type = 'color';
-    input.value = color;
-    input.title = "Selecciona un color";
-    input.addEventListener('input', () => {
-      updateGradient();
-      updatePreviewText();
+    input.value = value;
+    input.setAttribute('aria-label', 'Selector de color para gradiente');
+    input.addEventListener('input', updateGradient);
+    return input;
+  }
+
+  function updatePaletteInputs() {
+    paletteInputsDiv.innerHTML = '';
+    colors.forEach(color => {
+      paletteInputsDiv.appendChild(createColorInput(color));
     });
-    paletteInputsDiv.appendChild(input);
+  }
+
+  function updateGradient() {
+    // Leer colores actuales
+    colors = Array.from(paletteInputsDiv.querySelectorAll('input[type=color]')).map(input => input.value);
+    if (colors.length < 2) return;
+
+    // Crear CSS de gradiente lineal
+    const gradientCSS = `linear-gradient(90deg, ${colors.join(', ')})`;
+    gradientPreview.style.background = gradientCSS;
+
+    // Actualizar CSS para output
+    const cssText = `background: ${gradientCSS};\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\nbackground-clip: text;\ncolor: transparent;`;
+    outputCSS.textContent = cssText;
+
+    // Actualizar texto con gradiente
+    [normalText, boldText, italicText].forEach(span => {
+      span.style.background = gradientCSS;
+      span.style.webkitBackgroundClip = 'text';
+      span.style.backgroundClip = 'text';
+      span.style.webkitTextFillColor = 'transparent';
+      span.style.color = 'transparent';
+    });
+  }
+
+  function addColor() {
+    if (colors.length >= 8) return; // Limite maximo colores
+    colors.push('#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'));
+    updatePaletteInputs();
     updateGradient();
   }
 
   function removeColor() {
-    if (palette.length <= minColors) return alert("Debes tener al menos 2 colores.");
-    palette.pop();
-    paletteInputsDiv.removeChild(paletteInputsDiv.lastElementChild);
+    if (colors.length <= 2) return; // Minimo dos colores para gradiente
+    colors.pop();
+    updatePaletteInputs();
     updateGradient();
-    updatePreviewText();
-  }
-
-  function updateGradient() {
-    palette = Array.from(paletteInputsDiv.querySelectorAll('input[type=color]')).map(i => i.value);
-    const gradient = `linear-gradient(to right, ${palette.join(', ')})`;
-    gradientPreview.style.background = gradient;
-
-    outputCSS.textContent = `background: ${gradient};`;
-    updatePreviewColors();
-  }
-
-  function updatePreviewColors() {
-    const gradient = `linear-gradient(to right, ${palette.join(', ')})`;
-    [normalTextSpan, boldTextSpan, italicTextSpan].forEach(span => {
-      span.style.background = gradient;
-      span.style.webkitBackgroundClip = 'text';
-      span.style.backgroundClip = 'text';
-      span.style.color = 'transparent';
-      span.style.textShadow = 'none';
-    });
-  }
-
-  function randomHexColor() {
-    return Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');
   }
 
   function randomPalette() {
-    paletteInputsDiv.innerHTML = '';
-    palette = [];
-    const nColors = Math.floor(Math.random() * (maxColors - minColors + 1)) + minColors;
-    for(let i=0; i<nColors; i++) {
-      addColor('#'+randomHexColor());
+    colors = [];
+    const count = Math.floor(Math.random() * 4) + 3; // entre 3 y 6 colores
+    for (let i=0; i<count; i++) {
+      colors.push('#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'));
     }
-    updatePreviewText();
+    updatePaletteInputs();
+    updateGradient();
   }
 
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      snackbar.classList.add('show');
-      setTimeout(() => snackbar.classList.remove('show'), 3000);
-    }).catch(() => alert('No se pudo copiar al portapapeles'));
+  function updateText() {
+    const text = customTextInput.value.trim() || 'Texto de ejemplo';
+    normalText.textContent = text;
+    boldText.textContent = text;
+    italicText.textContent = text;
   }
 
-  function updatePreviewText() {
-    const text = customTextInput.value.trim() || "Texto de ejemplo";
-    normalTextSpan.textContent = text;
-    boldTextSpan.textContent = text;
-    italicTextSpan.textContent = text;
-  }
+  // Copiar CSS al portapapeles
+  outputCSS.addEventListener('click', () => {
+    navigator.clipboard.writeText(outputCSS.textContent)
+      .then(() => {
+        showSnackbar('CSS copiado al portapapeles 💎');
+      })
+      .catch(() => {
+        alert('Error al copiar al portapapeles');
+      });
+  });
 
-  [normalTextSpan, boldTextSpan, italicTextSpan].forEach(span => {
-    span.addEventListener('click', () => copyToClipboard(span.textContent));
-    span.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        copyToClipboard(span.textContent);
-      }
+  // Copiar texto del preview
+  [normalText, boldText, italicText].forEach(span => {
+    span.addEventListener('click', () => {
+      navigator.clipboard.writeText(span.textContent)
+        .then(() => {
+          showSnackbar('Texto copiado 💎');
+        })
+        .catch(() => {
+          alert('Error al copiar el texto');
+        });
     });
   });
 
-  outputCSS.addEventListener('click', () => {
-    copyToClipboard(outputCSS.textContent);
-  });
-
-  addColorBtn.addEventListener('click', () => addColor('#'+randomHexColor()));
-  removeColorBtn.addEventListener('click', removeColor);
-  randomPaletteBtn.addEventListener('click', randomPalette);
-  customTextInput.addEventListener('input', updatePreviewText);
-
-  function init() {
-    paletteInputsDiv.innerHTML = '';
-    palette = [];
-    addColor('#ff0000');
-    addColor('#00ff00');
-    addColor('#0000ff');
-    updatePreviewText();
+  function showSnackbar(message) {
+    snackbar.textContent = message;
+    snackbar.className = "show";
+    setTimeout(() => {
+      snackbar.className = snackbar.className.replace("show", "");
+    }, 3000);
   }
 
-  init();
+  addColorBtn.addEventListener('click', addColor);
+  removeColorBtn.addEventListener('click', removeColor);
+  randomPaletteBtn.addEventListener('click', randomPalette);
+  customTextInput.addEventListener('input', () => {
+    updateText();
+  });
+
+  // Inicializar
+  updatePaletteInputs();
+  updateGradient();
+  updateText();
 </script>
 
 </body>
