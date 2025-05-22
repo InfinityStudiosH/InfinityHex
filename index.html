@@ -1,161 +1,176 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Generador de Colores HEX</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      overflow: hidden;
-      color: white;
-      position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 30%, #3a0072, transparent 70%),
-                  radial-gradient(circle at 80% 70%, #001a72, transparent 70%),
-                  radial-gradient(circle at 50% 50%, #7300ff, transparent 40%);
-      background-color: #0b0c1e;
-      background-blend-mode: screen;
-      z-index: -1;
-    }
-
-    .stars {
-      background: transparent url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/star.png') repeat;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 200%;
-      animation: moveStars 100s linear infinite;
-      opacity: 0.2;
-      z-index: -2;
-    }
-
-    @keyframes moveStars {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-50%, -50%); }
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .color-box {
-      width: 200px;
-      height: 200px;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.3);
-      transition: background-color 0.3s;
-    }
-
-    .hex-code {
-      font-size: 24px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 5px;
-      background-color: #ff3c00;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #ff5722;
-    }
-
-    .copied {
-      font-size: 14px;
-      color: #4caf50;
-      margin-top: 5px;
-    }
-  </style>
-</head>
-<body>
-  <div class="stars"></div>
-  <div class="container">
-    <div class="color-box" id="colorBox"></div>
-    <div class="hex-code" id="hexCode" title="Haz clic para copiar">#000000</div>
-    <div class="copied" id="copiedMsg" style="display: none;">¡Copiado!</div>
-
-    <button onclick="generateColor()" id="generateBtn">Generar color</button>
-    <button onclick="toggleLanguage()" id="langBtn">Cambiar a Inglés</button>
-  </div>
-
-  <script>
-    let currentLang = "es";
-
-    const translations = {
-      es: {
-        generate: "Generar color",
-        copied: "¡Copiado!",
-        clickToCopy: "Haz clic para copiar",
-        toEnglish: "Cambiar a Inglés",
-        toSpanish: "Cambiar a Español",
-      },
-      en: {
-        generate: "Generate color",
-        copied: "Copied!",
-        clickToCopy: "Click to copy",
-        toEnglish: "Switch to English",
-        toSpanish: "Switch to Spanish",
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap">
+    <link rel="shortcut icon" href="https://cdn.discordapp.com/emojis/791742603183259648.webp?size=96&quality=lossless" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>HEX Generator (RGB) | AlonsoAliaga Development</title>
+    <meta name="theme-color" content="#9a14ff"/>
+    <meta property="og:title" content="HEX Generator (RGB) | AlonsoAliaga Development">
+    <meta property="og:image" content="https://raw.githubusercontent.com/AlonsoAliaga/alonsoaliaga.github.io/main/assets/img/apple-touch-icon.png">
+    <meta property="og:description" content="Create HEX gradients for your server easily. Supports multiple formats, emojis, lore and MOTD!">
+    <meta name="keywords" content="spigot, bungeecord, paper, alonsoaliaga, minecraft, plugins, html, css, javascript, java, hex, rgb, generator">
+    <meta property="og:url" content="https://alonsoaliaga.github.io/index.html">
+    <style>
+      body {
+        font-family: 'Orbitron', sans-serif;
+        background: radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e);
+        color: white;
+        background-attachment: fixed;
+        background-size: cover;
+        padding: 20px;
       }
-    };
+      #outputText {
+        background-color: rgba(0,0,0,0.7);
+        border: 1px solid #9a14ff;
+        border-radius: 10px;
+        padding: 15px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .favorite-color {
+        width: 100%;
+        height: 30px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HEX Generator (RGB) | AlonsoAliaga Development</h1>
 
-    function generateColor() {
-      const hex = "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
-      document.getElementById("colorBox").style.backgroundColor = hex;
-      document.getElementById("hexCode").innerText = hex;
-      document.getElementById("copiedMsg").style.display = "none";
-    }
+    <div class="form-group">
+      <label>Generate Color:</label>
+      <input type="color" id="colorPicker" class="form-control" onchange="handleColorChange(this.value)">
+    </div>
 
-    document.getElementById("hexCode").addEventListener("click", () => {
-      const hex = document.getElementById("hexCode").innerText;
-      navigator.clipboard.writeText(hex);
-      document.getElementById("copiedMsg").innerText = translations[currentLang].copied;
-      document.getElementById("copiedMsg").style.display = "block";
-      setTimeout(() => {
-        document.getElementById("copiedMsg").style.display = "none";
-      }, 1500);
-    });
+    <div class="row">
+      <div class="col-md-4">
+        <label>HEX</label>
+        <input id="hexOutput" class="form-control" readonly>
+      </div>
+      <div class="col-md-4">
+        <label>RGB</label>
+        <input id="rgbOutput" class="form-control" readonly>
+      </div>
+      <div class="col-md-4">
+        <label>HSL</label>
+        <input id="hslOutput" class="form-control" readonly>
+      </div>
+    </div>
 
-    function toggleLanguage() {
-      currentLang = currentLang === "es" ? "en" : "es";
-      document.getElementById("generateBtn").innerText = translations[currentLang].generate;
-      document.getElementById("hexCode").title = translations[currentLang].clickToCopy;
-      document.getElementById("langBtn").innerText = currentLang === "es" ? translations.es.toEnglish : translations.en.toSpanish;
-    }
+    <br>
+    <h3>Historial reciente</h3>
+    <div id="historyColors"></div>
 
-    window.onload = generateColor;
-  </script>
-</body>
+    <br>
+    <h3>Favoritos</h3>
+    <div id="favoriteColors"></div>
+
+    <br>
+    <button class="btn btn-success" onclick="exportColors()">📥 Exportar Colores</button>
+
+    <pre id="outputText">Haz clic para copiar</pre>
+
+    <script>
+      let history = [];
+      let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+      function handleColorChange(hex) {
+        updateDisplays(hex);
+        updateHistory(hex);
+      }
+
+      function updateDisplays(hex) {
+        const rgb = hexToRgb(hex);
+        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+        document.getElementById('hexOutput').value = hex;
+        document.getElementById('rgbOutput').value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+        document.getElementById('hslOutput').value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+        document.getElementById('outputText').textContent = hex;
+      }
+
+      function updateHistory(hex) {
+        if (history.includes(hex)) return;
+        history.unshift(hex);
+        if (history.length > 5) history.pop();
+        const container = document.getElementById('historyColors');
+        container.innerHTML = '';
+        history.forEach(color => {
+          const div = document.createElement('div');
+          div.style.backgroundColor = color;
+          div.className = 'favorite-color';
+          div.onclick = () => handleColorChange(color);
+          container.appendChild(div);
+        });
+      }
+
+      function exportColors() {
+        const blob = new Blob([history.join('\n')], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'colors.txt';
+        link.click();
+      }
+
+      function addFavorite(hex) {
+        if (!favorites.includes(hex)) {
+          favorites.push(hex);
+          localStorage.setItem('favorites', JSON.stringify(favorites));
+          renderFavorites();
+        }
+      }
+
+      function renderFavorites() {
+        const container = document.getElementById('favoriteColors');
+        container.innerHTML = '';
+        favorites.forEach(color => {
+          const div = document.createElement('div');
+          div.style.backgroundColor = color;
+          div.className = 'favorite-color';
+          div.onclick = () => handleColorChange(color);
+          container.appendChild(div);
+        });
+      }
+
+      function hexToRgb(hex) {
+        const bigint = parseInt(hex.slice(1), 16);
+        return {
+          r: (bigint >> 16) & 255,
+          g: (bigint >> 8) & 255,
+          b: bigint & 255
+        };
+      }
+
+      function rgbToHsl(r, g, b) {
+        r /= 255; g /= 255; b /= 255;
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+        if (max === min) { h = s = 0; }
+        else {
+          const d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+          switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+          }
+          h /= 6;
+        }
+        return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+      }
+
+      document.getElementById('outputText').addEventListener('click', function () {
+        navigator.clipboard.writeText(this.textContent);
+        alert('Color copiado al portapapeles!');
+      });
+
+      renderFavorites();
+    </script>
+  </body>
 </html>
