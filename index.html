@@ -2,281 +2,160 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Infinity Studios - Portafolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generador de Colores HEX</title>
   <style>
-    body, html {
-      margin: 0; padding: 0; height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden;
       color: white;
-      overflow-x: hidden;
-      background: #0d0d2b;
-      scroll-behavior: smooth;
+      position: relative;
     }
 
     body::before {
       content: "";
-      position: fixed;
-      top:0; left:0; right:0; bottom:0;
-      background: rgba(10,10,30,0.7);
-      backdrop-filter: blur(6px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, #3a0072, transparent 70%),
+                  radial-gradient(circle at 80% 70%, #001a72, transparent 70%),
+                  radial-gradient(circle at 50% 50%, #7300ff, transparent 40%);
+      background-color: #0b0c1e;
+      background-blend-mode: screen;
       z-index: -1;
     }
 
-    #tsparticles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
+    .stars {
+      background: transparent url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/star.png') repeat;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      animation: moveStars 100s linear infinite;
+      opacity: 0.2;
       z-index: -2;
     }
 
-    header {
-      background: rgba(20, 20, 60, 0.85);
-      backdrop-filter: blur(10px);
-      padding: 30px 20px;
-      text-align: center;
-      border-bottom: 2px solid rgba(100, 100, 255, 0.3);
+    @keyframes moveStars {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-50%, -50%); }
+    }
+
+    .container {
       position: relative;
       z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
-    nav a {
-      color: #8ecfff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #00ffff;
-      text-shadow: 0 0 8px #00f2ff;
-    }
-
-    section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2.5em;
-      margin-bottom: 30px;
-      color: #90f0ff;
-      text-shadow: 0 0 8px #00f2ff;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      margin-bottom: 25px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 225, 255, 0.1);
-      backdrop-filter: blur(4px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
-    }
-
-    .testimonial {
-      border-left: 4px solid #7effa9;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      background: rgba(20, 20, 60, 0.85);
-      border-top: 2px solid rgba(100, 100, 255, 0.3);
-      backdrop-filter: blur(10px);
-      margin-top: 40px;
-      position: relative;
-      z-index: 1;
-    }
-
-    #inicio {
-      text-align: center;
-      padding-top: 100px;
-      padding-bottom: 120px;
-      font-size: 1.3em;
-      color: #a8d8ff;
-      text-shadow: 0 0 12px #00cfff;
-    }
-
-    #inicio h2 {
-      font-size: 3em;
+    .color-box {
+      width: 200px;
+      height: 200px;
+      border-radius: 16px;
       margin-bottom: 20px;
-      color: #60cfff;
-      text-shadow: 0 0 18px #00dfff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      transition: background-color 0.3s;
     }
 
-    #inicio p {
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6em;
-    }
-
-    #inicio a.cta-button {
-      display: inline-block;
-      margin-top: 40px;
-      padding: 15px 40px;
-      background: #00e0ff;
-      color: #00222a;
-      font-weight: bold;
-      border-radius: 30px;
-      text-decoration: none;
-      box-shadow: 0 0 15px #00e0ff;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    #inicio a.cta-button:hover {
-      background: #0088aa;
-      color: #a0f0ff;
-      box-shadow: 0 0 30px #00e0ff;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    ul li {
+    .hex-code {
+      font-size: 24px;
       margin-bottom: 10px;
-      font-size: 1.1em;
+      cursor: pointer;
+      user-select: none;
     }
 
-    strong {
-      color: #8effff;
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      background-color: #ff3c00;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
 
-    /* Animaciones Scroll Reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.6s ease;
+    button:hover {
+      background-color: #ff5722;
     }
 
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
+    .copied {
+      font-size: 14px;
+      color: #4caf50;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
+  <div class="stars"></div>
+  <div class="container">
+    <div class="color-box" id="colorBox"></div>
+    <div class="hex-code" id="hexCode" title="Haz clic para copiar">#000000</div>
+    <div class="copied" id="copiedMsg" style="display: none;">¡Copiado!</div>
 
-  <div id="tsparticles"></div>
+    <button onclick="generateColor()" id="generateBtn">Generar color</button>
+    <button onclick="toggleLanguage()" id="langBtn">Cambiar a Inglés</button>
+  </div>
 
-  <header>
-    <h1>Infinity Studios - Portafolio</h1>
-    <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#testimonios">Testimonios</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-  </header>
-
-  <section id="inicio" class="reveal">
-    <h2>Bienvenido a Infinity Studios</h2>
-    <p>
-      Somos un equipo dedicado a crear soluciones tecnológicas personalizadas para comunidades gaming y servidores de Minecraft. Explora nuestros proyectos y descubre cómo podemos ayudarte a llevar tu servidor o comunidad al siguiente nivel.
-    </p>
-    <a href="#proyectos" class="cta-button">Ver Proyectos</a>
-  </section>
-
-  <section id="proyectos">
-    <h2 class="section-title reveal">Proyectos</h2>
-
-    <div class="card reveal">
-      <h3>BostCore "Bot"</h3>
-      <p>Bot multifunción diseñado para servidores Minecraft. Incluye sistema de tickets, niveles, staff tools y funciones automatizadas.</p>
-    </div>
-
-    <div class="card reveal">
-      <h3>Eternity MC</h3>
-      <p>Servidor de Minecraft con enfoque PvP, sistema de rangos, tienda personalizada, economía y eventos automáticos.</p>
-    </div>
-
-    <div class="card reveal">
-      <h3>Infinity Studios "Bot"</h3>
-      <p>Bot personalizado con sistema de niveles, mensajes de bienvenida, estadísticas de invitaciones, tickets, reviews y más.</p>
-    </div>
-  </section>
-
-  <section id="testimonios">
-    <h2 class="section-title reveal">Testimonios</h2>
-
-    <div class="card testimonial reveal">
-      <p><strong>@AndresGamer:</strong> "Infinity Studios transformó nuestro servidor con un bot que automatizó todo el soporte. ¡Recomendado!"</p>
-    </div>
-
-    <div class="card testimonial reveal">
-      <p><strong>@PixelKing:</strong> "El plugin de harvester hoes nos ayudó a aumentar la retención de jugadores. ¡Vale cada centavo!"</p>
-    </div>
-  </section>
-
-  <section id="contacto">
-    <h2 class="section-title reveal">Contacto</h2>
-
-    <div class="card reveal">
-      <p>¿Interesado en trabajar con nosotros? Contáctanos:</p>
-      <ul>
-        <li>💬 Discord: <strong>Shadow</strong></li>
-        <li>📧 Email: <strong>contacto@infinitystudios.dev</strong></li>
-      </ul>
-    </div>
-  </section>
-
-  <footer>
-    &copy; 2025 Infinity Studios. Todos los derechos reservados.
-  </footer>
-
-  <!-- Animación al hacer scroll -->
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.1 });
+    let currentLang = "es";
 
-    document.querySelectorAll('.reveal').forEach(el => {
-      observer.observe(el);
-    });
-  </script>
-
-  <!-- tsParticles - fondo de estrellas -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
-  <script>
-    tsParticles.load("tsparticles", {
-      fullScreen: { enable: true, zIndex: -2 },
-      particles: {
-        number: { value: 100, density: { enable: true, area: 800 } },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.6 },
-        size: { value: 1.5, random: true },
-        move: {
-          enable: true,
-          speed: 0.3,
-          direction: "none",
-          random: true,
-          straight: false,
-          outModes: "out"
-        }
+    const translations = {
+      es: {
+        generate: "Generar color",
+        copied: "¡Copiado!",
+        clickToCopy: "Haz clic para copiar",
+        toEnglish: "Cambiar a Inglés",
+        toSpanish: "Cambiar a Español",
       },
-      background: {
-        color: "#0d0d2b"
+      en: {
+        generate: "Generate color",
+        copied: "Copied!",
+        clickToCopy: "Click to copy",
+        toEnglish: "Switch to English",
+        toSpanish: "Switch to Spanish",
       }
+    };
+
+    function generateColor() {
+      const hex = "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
+      document.getElementById("colorBox").style.backgroundColor = hex;
+      document.getElementById("hexCode").innerText = hex;
+      document.getElementById("copiedMsg").style.display = "none";
+    }
+
+    document.getElementById("hexCode").addEventListener("click", () => {
+      const hex = document.getElementById("hexCode").innerText;
+      navigator.clipboard.writeText(hex);
+      document.getElementById("copiedMsg").innerText = translations[currentLang].copied;
+      document.getElementById("copiedMsg").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("copiedMsg").style.display = "none";
+      }, 1500);
     });
+
+    function toggleLanguage() {
+      currentLang = currentLang === "es" ? "en" : "es";
+      document.getElementById("generateBtn").innerText = translations[currentLang].generate;
+      document.getElementById("hexCode").title = translations[currentLang].clickToCopy;
+      document.getElementById("langBtn").innerText = currentLang === "es" ? translations.es.toEnglish : translations.en.toSpanish;
+    }
+
+    window.onload = generateColor;
   </script>
 </body>
 </html>
