@@ -1,258 +1,201 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Generador de Colores HEX | Estilo Galaxia</title>
-  <style>
-    /* Fondo galaxia */
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
-      color: white;
-      transition: background 0.5s, color 0.5s;
-      padding: 20px;
-    }
-    /* Contenedor */
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: rgba(10,10,30,0.7);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 20px #6b1aff;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 15px;
-      color: #cda0ff;
-      text-shadow: 0 0 6px #9a14ff;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-    }
-    input[type="color"] {
-      width: 80px;
-      height: 40px;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
-      vertical-align: middle;
-      margin-right: 10px;
-      box-shadow: 0 0 8px #9a14ff;
-      transition: box-shadow 0.3s ease;
-    }
-    input[type="color"]:focus {
-      outline: none;
-      box-shadow: 0 0 12px #d17aff;
-    }
-    input[type="text"] {
-      width: 100%;
-      font-size: 1.2em;
-      padding: 8px 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-      box-shadow: 0 0 8px #9a14ff;
-      background: #111;
-      color: white;
-      transition: box-shadow 0.3s ease;
-    }
-    input[type="text"]:focus {
-      outline: none;
-      box-shadow: 0 0 12px #d17aff;
-    }
-    .palette {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .palette div {
-      width: 50px;
-      height: 50px;
-      border-radius: 8px;
-      box-shadow: 0 0 8px #9a14ff;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      border: 2px solid transparent;
-    }
-    .palette div:hover {
-      transform: scale(1.1);
-      border-color: #d17aff;
-    }
-    #gradientPreview {
-      margin-top: 20px;
-      height: 80px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px #9a14ff;
-      background: linear-gradient(to right, #ff0000, #00ff00);
-    }
-    #outputCSS {
-      background: #222;
-      padding: 10px;
-      margin-top: 15px;
-      border-radius: 8px;
-      font-family: monospace;
-      cursor: pointer;
-      user-select: all;
-      box-shadow: 0 0 8px #6b1aff;
-    }
-    /* Vista previa texto */
-    #previewText {
-      margin-top: 25px;
-      font-size: 1.4em;
-      text-align: center;
-      line-height: 1.6;
-      user-select: none;
-    }
-    #previewText span {
-      cursor: pointer;
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-    }
-    #previewText span:hover {
-      background-color: rgba(154, 20, 255, 0.3);
-    }
-    /* Botones */
-    button {
-      margin-top: 15px;
-      background: #6b1aff;
-      border: none;
-      padding: 10px 18px;
-      color: white;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 0 12px #9a14ff;
-      transition: background 0.3s ease;
-      margin-right: 10px;
-    }
-    button:hover {
-      background: #9a14ff;
-    }
-    /* Modo oscuro */
-    body.dark-mode {
-      background: #090a0f;
-      color: #eee;
-    }
-    /* Notificación pequeña */
-    #snackbar {
-      visibility: hidden;
-      min-width: 200px;
-      background-color: #6b1aff;
-      color: white;
-      text-align: center;
-      border-radius: 4px;
-      padding: 12px;
-      position: fixed;
-      z-index: 1;
-      left: 50%;
-      bottom: 30px;
-      font-size: 17px;
-      transform: translateX(-50%);
-      box-shadow: 0 0 15px #9a14ff;
-      user-select: none;
-    }
-    #snackbar.show {
-      visibility: visible;
-      animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    }
-    @keyframes fadein {
-      from {bottom: 0; opacity: 0;}
-      to {bottom: 30px; opacity: 1;}
-    }
-    @keyframes fadeout {
-      from {bottom: 30px; opacity: 1;}
-      to {bottom: 0; opacity: 0;}
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Generador de Colores HEX con Gradiente | AlonsoAliaga Development</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
+    color: #ddd;
+    margin: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #9a14ff;
+  }
+  #controls {
+    max-width: 600px;
+    margin: 15px auto;
+    padding: 15px;
+    background: rgba(30, 10, 60, 0.7);
+    border-radius: 12px;
+  }
+  #paletteInputs input[type=color] {
+    margin: 5px 5px 15px 0;
+    width: 50px;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 0 6px #9a14ff;
+  }
+  button {
+    background-color: #9a14ff;
+    border: none;
+    color: white;
+    padding: 10px 14px;
+    margin: 10px 5px 10px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #7a0ecc;
+  }
+  #gradientPreview {
+    width: 100%;
+    height: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #9a14ff;
+    margin-top: 10px;
+  }
+  #outputCSS {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: rgba(30, 10, 60, 0.9);
+    border-radius: 10px;
+    font-family: monospace;
+    user-select: all;
+    cursor: pointer;
+    box-shadow: 0 0 12px #9a14ff;
+  }
+  #customTextInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 15px;
+    box-shadow: 0 0 10px #9a14ff inset;
+    background-color: rgba(40, 20, 70, 0.7);
+    color: #ddd;
+  }
+  #previewText {
+    max-width: 600px;
+    margin: 30px auto 10px auto;
+    text-align: center;
+  }
+  #previewText span {
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 12px;
+    border-radius: 8px;
+    font-size: 22px;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  #previewText span:hover {
+    background-color: rgba(154, 20, 255, 0.3);
+    color: transparent;
+  }
+  #previewText span.bold {
+    font-weight: 700;
+  }
+  #previewText span.italic {
+    font-style: italic;
+  }
+  #snackbar {
+    visibility: hidden;
+    min-width: 220px;
+    background-color: #9a14ffdd;
+    color: #fff;
+    text-align: center;
+    border-radius: 12px;
+    padding: 14px;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    bottom: 30px;
+    font-size: 18px;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px #9a14ff;
+    user-select: none;
+  }
+  #snackbar.show {
+    visibility: visible;
+    animation: fadein 0.4s, fadeout 0.4s 2.6s;
+  }
+  @keyframes fadein {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 30px; opacity: 1; }
+  }
+  @keyframes fadeout {
+    from { bottom: 30px; opacity: 1; }
+    to { bottom: 0; opacity: 0; }
+  }
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Generador de Colores HEX | Estilo Galaxia</h1>
+<h1>Generador de Colores HEX con Gradiente</h1>
 
-    <label>Selecciona colores para la paleta:</label>
-    <div class="palette" id="paletteInputs">
-      <!-- Inputs se generan con JS -->
-    </div>
-
-    <div>
-      <button id="addColorBtn" title="Agregar color">➕ Agregar color</button>
-      <button id="removeColorBtn" title="Quitar último color">➖ Quitar color</button>
-      <button id="randomPaletteBtn" title="Paleta aleatoria">🎲 Paleta Aleatoria</button>
-      <button id="toggleDarkModeBtn" title="Modo oscuro">🌙 Modo Oscuro</button>
-    </div>
-
-    <label for="customText">Escribe tu texto personalizado:</label>
-    <input type="text" id="customText" placeholder="Escribe aquí... (ej. Hola Mundo)" />
-
-    <div id="gradientPreview" title="Vista previa del gradiente"></div>
-
-    <pre id="outputCSS" title="Click para copiar CSS"></pre>
-
-    <div id="previewText" title="Haz click en el texto para copiarlo">
-      <p>Normal: <span id="normalText" style="color:#fff;">Texto de ejemplo</span></p>
-      <p>Bold: <span id="boldText" style="color:#fff; font-weight: bold;">Texto de ejemplo</span></p>
-      <p>Italic: <span id="italicText" style="color:#fff; font-style: italic;">Texto de ejemplo</span></p>
-    </div>
+<div id="controls">
+  <div id="paletteInputs">
+    <!-- Inputs de colores se generan aquí -->
   </div>
+  <button id="addColorBtn">Agregar color</button>
+  <button id="removeColorBtn">Quitar color</button>
+  <button id="randomPaletteBtn">Paleta aleatoria</button>
+  <input type="text" id="customTextInput" placeholder="Escribe tu texto aquí..." />
+  <div id="gradientPreview"></div>
+  <pre id="outputCSS" title="Haz clic para copiar el CSS"></pre>
+</div>
 
-  <div id="snackbar">Texto copiado al portapapeles!</div>
+<div id="previewText">
+  <span id="normalText">Texto de ejemplo</span>
+  <span id="boldText" class="bold">Texto de ejemplo</span>
+  <span id="italicText" class="italic">Texto de ejemplo</span>
+</div>
+
+<div id="snackbar">¡Texto copiado! 💎</div>
 
 <script>
-  // Variables
-  let palette = [];
   const paletteInputsDiv = document.getElementById('paletteInputs');
-  const gradientPreview = document.getElementById('gradientPreview');
-  const outputCSS = document.getElementById('outputCSS');
-  const randomPaletteBtn = document.getElementById('randomPaletteBtn');
-  const toggleDarkModeBtn = document.getElementById('toggleDarkModeBtn');
   const addColorBtn = document.getElementById('addColorBtn');
   const removeColorBtn = document.getElementById('removeColorBtn');
-  const customTextInput = document.getElementById('customText');
+  const randomPaletteBtn = document.getElementById('randomPaletteBtn');
+  const gradientPreview = document.getElementById('gradientPreview');
+  const outputCSS = document.getElementById('outputCSS');
+  const customTextInput = document.getElementById('customTextInput');
+  const snackbar = document.getElementById('snackbar');
   const normalTextSpan = document.getElementById('normalText');
   const boldTextSpan = document.getElementById('boldText');
   const italicTextSpan = document.getElementById('italicText');
-  const snackbar = document.getElementById('snackbar');
 
-  // Limites para colores
-  const minColors = 2;
+  let palette = [];
   const maxColors = 10;
+  const minColors = 2;
 
-  // Crear input de color y añadir al DOM y palette
-  function addColor(value) {
-    if(palette.length >= maxColors) return alert("Máximo 10 colores en la paleta.");
+  // Función para añadir un nuevo input de color
+  function addColor(color) {
+    if (palette.length >= maxColors) return;
+    palette.push(color);
     const input = document.createElement('input');
     input.type = 'color';
-    input.value = value || '#'+randomHexColor();
+    input.value = color;
+    input.title = "Selecciona un color";
     input.addEventListener('input', () => {
-      const index = paletteInputsDiv.querySelectorAll('input[type=color]').indexOf(input);
-      // actualizamos palette según el orden actual de inputs
-      palette = Array.from(paletteInputsDiv.querySelectorAll('input[type=color]')).map(i => i.value);
       updateGradient();
-      updatePreviewColors(palette[0]);
+      updatePreviewText();
     });
     paletteInputsDiv.appendChild(input);
-    palette.push(input.value);
     updateGradient();
-    updatePreviewColors(palette[0]);
   }
 
-  // Eliminar último color
+  // Función para quitar último color
   function removeColor() {
-    if(palette.length <= minColors) return alert("Se necesitan al menos 2 colores.");
+    if (palette.length <= minColors) return alert("Debes tener al menos 2 colores.");
     palette.pop();
     paletteInputsDiv.removeChild(paletteInputsDiv.lastElementChild);
     updateGradient();
-    updatePreviewColors(palette[0]);
+    updatePreviewText();
   }
 
   // Actualizar gradiente y CSS
@@ -262,6 +205,18 @@
     gradientPreview.style.background = gradient;
 
     outputCSS.textContent = `background: ${gradient};`;
+    updatePreviewColors();
+  }
+
+  // Aplicar gradiente al texto
+  function updatePreviewColors() {
+    const gradient = `linear-gradient(to right, ${palette.join(', ')})`;
+    [normalTextSpan, boldTextSpan, italicTextSpan].forEach(span => {
+      span.style.background = gradient;
+      span.style.webkitBackgroundClip = 'text';
+      span.style.backgroundClip = 'text';
+      span.style.color = 'transparent';
+    });
   }
 
   // Generar color HEX aleatorio
@@ -277,6 +232,7 @@
     for(let i=0; i<nColors; i++) {
       addColor('#'+randomHexColor());
     }
+    updatePreviewText();
   }
 
   // Copiar al portapapeles y mostrar notificación
@@ -285,13 +241,6 @@
       snackbar.classList.add('show');
       setTimeout(() => snackbar.classList.remove('show'), 3000);
     }).catch(() => alert('No se pudo copiar al portapapeles'));
-  }
-
-  // Actualizar colores del texto de vista previa
-  function updatePreviewColors(color) {
-    normalTextSpan.style.color = color;
-    boldTextSpan.style.color = color;
-    italicTextSpan.style.color = color;
   }
 
   // Actualizar texto de vista previa con el texto personalizado
@@ -318,12 +267,7 @@
   addColorBtn.addEventListener('click', () => addColor('#'+randomHexColor()));
   removeColorBtn.addEventListener('click', removeColor);
   randomPaletteBtn.addEventListener('click', randomPalette);
-  toggleDarkModeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-  });
-  customTextInput.addEventListener('input', () => {
-    updatePreviewText();
-  });
+  customTextInput.addEventListener('input', updatePreviewText);
 
   // Inicializar con 3 colores y texto default
   function init() {
